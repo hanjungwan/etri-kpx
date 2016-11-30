@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<!--
+    Copyright 2010 The myBatis Team
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+
+<mapper namespace="contractManagement">    
+	<select id="selectContractManagementList" parameterType="hashmap" resultType="map">
+		SELECT a.mdt_cntr_no,
+		       a.cntr_terms,
+		       a.cntr_wnts_dt,
+		       a.cntr_wnte_dt,
+		       b.enpr_nm,
+		       d.enpr_nm mdt_nm,
+		       c.rsrs_nm,
+		       a.seq_no
+		FROM   tb_b_cntc_bas_info a
+		       LEFT JOIN tb_b_enpr_info b
+		              ON a.enpr_id = b.enpr_id
+		       LEFT JOIN tb_c_cntc_rsrs_info c
+		              ON a.rsrs_id = c.rsrs_id
+		       LEFT JOIN (SELECT a.mdt_enpr_info_id,
+		                         b.enpr_nm
+		                  FROM   tb_b_cntc_set_info a
+		                         LEFT JOIN tb_b_enpr_info b
+		                                ON a.enpr_id = b.enpr_id) d
+		              ON a.mdt_enpr_id = d.mdt_enpr_info_id  
+	</select>
+	<select id="selectContractManagement" parameterType="hashmap" resultType="map">
+		SELECT d.enpr_nm mdt_nm,
+		       b.enpr_nm,
+		       c.rsrs_nm,
+		       d.enpr_rgst_no,
+		       a.mdt_cntr_no,
+		       a.cntr_wnts_dt,
+		       a.cntr_wnte_dt,
+		       a.cntr_terms,
+		       a.pwr_mdt_fee,
+		       a.mtnc_fee,
+		       a.rec_mdt_fee,
+		       a.kpx_pwr_fee,
+		       a.kpx_cert_fee,
+		       a.mdt_enpr_id,
+		       a.rsrs_id,
+		       a.enpr_id,
+		       a.seq_no,
+		       a.cntr_id
+		FROM   tb_b_cntc_bas_info a
+		       LEFT JOIN tb_b_enpr_info b
+		              ON a.enpr_id = b.enpr_id
+		       LEFT JOIN tb_c_cntc_rsrs_info c
+		              ON a.rsrs_id = c.rsrs_id
+		       LEFT JOIN (SELECT a.mdt_enpr_info_id,
+		                         b.enpr_nm,
+		                         b.enpr_rgst_no
+		                  FROM   tb_b_cntc_set_info a
+		                         LEFT JOIN tb_b_enpr_info b
+		                                ON a.enpr_id = b.enpr_id) d
+		              ON a.mdt_enpr_id = d.mdt_enpr_info_id
+		<where>
+			 a.seq_no = #{id}
+		</where>  
+	</select>
+	<insert id="insertContractManagement" parameterType="hashmap">
+		INSERT INTO tb_b_cntc_bas_info
+		            (cntr_id,
+		             cntr_wnts_dt,
+		             cntr_wnte_dt,
+		             cntr_terms,
+		             pwr_mdt_fee,
+		             mtnc_fee,
+		             rec_mdt_fee,
+		             kpx_pwr_fee,
+		             kpx_cert_fee,
+		             mdt_enpr_id,
+		             rsrs_id,
+		             enpr_id)
+		VALUES     ( #{cntr_id},
+					 #{cntr_wnts_dt},
+		             #{cntr_wnte_dt},
+		             #{cntr_terms},
+		             #{pwr_mdt_fee},
+		             #{mtnc_fee},
+		             #{rec_mdt_fee},
+		             #{kpx_pwr_fee},
+		             #{kpx_cert_fee},
+		             #{mdt_enpr_id},
+		             #{rsrs_id},
+		             #{enpr_id} )  
+	</insert>
+	<update id="updateContractManagement" parameterType="hashmap">
+		UPDATE tb_b_cntc_bas_info
+		SET    cntr_wnts_dt = #{cntr_wnts_dt},
+		       cntr_wnte_dt = #{cntr_wnte_dt},
+		       cntr_terms = #{cntr_terms},
+		       pwr_mdt_fee = #{pwr_mdt_fee},
+		       mtnc_fee = #{mtnc_fee},
+		       rec_mdt_fee = #{rec_mdt_fee},
+		       kpx_pwr_fee = #{kpx_pwr_fee},
+		       kpx_cert_fee = #{kpx_cert_fee},
+		       mdt_enpr_id = #{mdt_enpr_id},
+		       rsrs_id = #{rsrs_id},
+		       enpr_id = #{enpr_id}
+		<where>
+			seq_no = #{seq_no}
+		</where>  
+	</update>
+</mapper>

@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<!--
+    Copyright 2010 The myBatis Team
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+
+<mapper namespace="bidding">    
+	<select id="selectBidSub1" parameterType="hashmap" resultType="map">
+		SELECT Date_format(a.sle_wnt_dt, '%Y-%m-%d %H:%i:%s') sle_wnt_dt,
+		       b.set_gnr_nm,
+		       (a.hr_01+a.hr_02+a.hr_03+a.hr_04+a.hr_05+a.hr_06+
+		       a.hr_07+a.hr_08+a.hr_09+a.hr_10+a.hr_11+a.hr_12+
+		       a.hr_13+a.hr_14+a.hr_15+a.hr_16+a.hr_17+a.hr_18+
+		       a.hr_19+a.hr_20+a.hr_21+a.hr_22+a.hr_23+a.hr_24) all_hr,
+		       Date_format(a.crt_dt, '%Y-%m-%d %H:%i:%s')     crt_dt,
+		       a.hr_01,
+		       a.hr_02,
+		       a.hr_03,
+		       a.hr_04,
+		       a.hr_05,
+		       a.hr_06,
+		       a.hr_07,
+		       a.hr_08,
+		       a.hr_09,
+		       a.hr_10,
+		       a.hr_11,
+		       a.hr_12,
+		       a.hr_13,
+		       a.hr_14,
+		       a.hr_15,
+		       a.hr_16,
+		       a.hr_17,
+		       a.hr_18,
+		       a.hr_19,
+		       a.hr_20,
+		       a.hr_21,
+		       a.hr_22,
+		       a.hr_23,
+		       a.hr_24,
+		       1 num
+		FROM   tb_d_elec_bidg a
+		       LEFT JOIN tb_c_cntc_unon_info b
+		              ON a.set_gnrrs_id = b.set_gnr_id
+		<if test="enpr_id != null">  
+		       LEFT JOIN tb_b_cntc_set_info c
+		       		  ON b.MDT_ENPR_INFO_ID = c.MDT_ENPR_INFO_ID
+			<where>
+				c.enpr_id = #{enpr_id}
+				AND Date_format(a.crt_dt, '%Y-%m-%d') between #{startDate} and #{endDate} 
+			</where>
+		</if>
+		UNION ALL
+		SELECT Date_format(a.sle_wnt_dt, '%Y-%m-%d %H:%i:%s') sle_wnt_dt,
+		       '합계'                                       set_gnr_nm,
+		       Sum(a.hr_01+a.hr_02+a.hr_03+a.hr_04+a.hr_05+a.hr_06+
+		       a.hr_07+a.hr_08+a.hr_09+a.hr_10+a.hr_11+a.hr_12+
+		       a.hr_13+a.hr_14+a.hr_15+a.hr_16+a.hr_17+a.hr_18+
+		       a.hr_19+a.hr_20+a.hr_21+a.hr_22+a.hr_23+a.hr_24) all_hr,
+		       ''                                             crt_dt,
+		       Sum(a.hr_01)                                   hr_01,
+		       Sum(a.hr_02)                                   hr_02,
+		       Sum(a.hr_03)                                   hr_03,
+		       Sum(a.hr_04)                                   hr_04,
+		       Sum(a.hr_05)                                   hr_05,
+		       Sum(a.hr_06)                                   hr_06,
+		       Sum(a.hr_07)                                   hr_07,
+		       Sum(a.hr_08)                                   hr_08,
+		       Sum(a.hr_09)                                   hr_09,
+		       Sum(a.hr_10)                                   hr_10,
+		       Sum(a.hr_11)                                   hr_11,
+		       Sum(a.hr_12)                                   hr_12,
+		       Sum(a.hr_13)                                   hr_13,
+		       Sum(a.hr_14)                                   hr_14,
+		       Sum(a.hr_15)                                   hr_15,
+		       Sum(a.hr_16)                                   hr_16,
+		       Sum(a.hr_17)                                   hr_17,
+		       Sum(a.hr_18)                                   hr_18,
+		       Sum(a.hr_19)                                   hr_19,
+		       Sum(a.hr_20)                                   hr_20,
+		       Sum(a.hr_21)                                   hr_21,
+		       Sum(a.hr_22)                                   hr_22,
+		       Sum(a.hr_23)                                   hr_23,
+		       Sum(a.hr_24)                                   hr_24,
+		       2 num
+		FROM   tb_d_elec_bidg a
+		       LEFT JOIN tb_c_cntc_unon_info b
+		              ON a.set_gnrrs_id = b.set_gnr_id
+		<if test="enpr_id != null">  
+		       LEFT JOIN tb_b_cntc_set_info c
+		       		  ON b.MDT_ENPR_INFO_ID = c.MDT_ENPR_INFO_ID
+			<where>
+				c.enpr_id = #{enpr_id}
+				AND Date_format(a.crt_dt, '%Y-%m-%d') between #{startDate} and #{endDate} 
+			</where>
+		</if>
+		GROUP  BY Date_format(a.sle_wnt_dt, '%Y-%m-%d %H:%i:%s')
+		ORDER  BY sle_wnt_dt,num  
+	</select>
+	<select id="selectBidSub2" parameterType="hashmap" resultType="map">
+		SELECT Date_format(a.sle_wnt_dt, '%Y-%m-%d %H:%i:%s') sle_wnt_dt,
+		       b.set_gnr_nm,
+		       (a.hr_01+a.hr_02+a.hr_03+a.hr_04+a.hr_05+a.hr_06+
+		       a.hr_07+a.hr_08+a.hr_09+a.hr_10+a.hr_11+a.hr_12+
+		       a.hr_13+a.hr_14+a.hr_15+a.hr_16+a.hr_17+a.hr_18+
+		       a.hr_19+a.hr_20+a.hr_21+a.hr_22+a.hr_23+a.hr_24) all_hr,
+		       Date_format(a.crt_dt, '%Y-%m-%d %H:%i:%s')     crt_dt,
+		       a.lst_yn,
+		       a.hr_01,
+		       a.hr_02,
+		       a.hr_03,
+		       a.hr_04,
+		       a.hr_05,
+		       a.hr_06,
+		       a.hr_07,
+		       a.hr_08,
+		       a.hr_09,
+		       a.hr_10,
+		       a.hr_11,
+		       a.hr_12,
+		       a.hr_13,
+		       a.hr_14,
+		       a.hr_15,
+		       a.hr_16,
+		       a.hr_17,
+		       a.hr_18,
+		       a.hr_19,
+		       a.hr_20,
+		       a.hr_21,
+		       a.hr_22,
+		       a.hr_23,
+		       a.hr_24
+		FROM   tb_d_elec_bidg a
+		       LEFT JOIN tb_c_cntc_unon_info b
+		              ON a.set_gnrrs_id = b.set_gnr_id
+		<if test="enpr_id != null">  
+		       LEFT JOIN tb_b_cntc_set_info c
+		       		  ON b.MDT_ENPR_INFO_ID = c.MDT_ENPR_INFO_ID
+			<where>
+				c.enpr_id = #{enpr_id}
+				AND Date_format(a.crt_dt, '%Y-%m-%d') = #{shDate} 
+			</where>
+		</if>
+		UNION ALL
+		SELECT Date_format(a.sle_wnt_dt, '%Y-%m-%d %H:%i:%s') sle_wnt_dt,
+		       '합계'                                       set_gnr_nm,
+		       Sum(a.hr_01+a.hr_02+a.hr_03+a.hr_04+a.hr_05+a.hr_06+
+		       a.hr_07+a.hr_08+a.hr_09+a.hr_10+a.hr_11+a.hr_12+
+		       a.hr_13+a.hr_14+a.hr_15+a.hr_16+a.hr_17+a.hr_18+
+		       a.hr_19+a.hr_20+a.hr_21+a.hr_22+a.hr_23+a.hr_24) all_hr,
+		       ''                                             crt_dt,
+		       ''											  lst_yn,
+		       Sum(a.hr_01)                                   hr_01,
+		       Sum(a.hr_02)                                   hr_02,
+		       Sum(a.hr_03)                                   hr_03,
+		       Sum(a.hr_04)                                   hr_04,
+		       Sum(a.hr_05)                                   hr_05,
+		       Sum(a.hr_06)                                   hr_06,
+		       Sum(a.hr_07)                                   hr_07,
+		       Sum(a.hr_08)                                   hr_08,
+		       Sum(a.hr_09)                                   hr_09,
+		       Sum(a.hr_10)                                   hr_10,
+		       Sum(a.hr_11)                                   hr_11,
+		       Sum(a.hr_12)                                   hr_12,
+		       Sum(a.hr_13)                                   hr_13,
+		       Sum(a.hr_14)                                   hr_14,
+		       Sum(a.hr_15)                                   hr_15,
+		       Sum(a.hr_16)                                   hr_16,
+		       Sum(a.hr_17)                                   hr_17,
+		       Sum(a.hr_18)                                   hr_18,
+		       Sum(a.hr_19)                                   hr_19,
+		       Sum(a.hr_20)                                   hr_20,
+		       Sum(a.hr_21)                                   hr_21,
+		       Sum(a.hr_22)                                   hr_22,
+		       Sum(a.hr_23)                                   hr_23,
+		       Sum(a.hr_24)                                   hr_24
+		FROM   tb_d_elec_bidg a
+		       LEFT JOIN tb_c_cntc_unon_info b
+		              ON a.set_gnrrs_id = b.set_gnr_id
+		<if test="enpr_id != null">  
+		       LEFT JOIN tb_b_cntc_set_info c
+		       		  ON b.MDT_ENPR_INFO_ID = c.MDT_ENPR_INFO_ID
+			<where>
+				c.enpr_id = #{enpr_id}
+				AND Date_format(a.crt_dt, '%Y-%m-%d') = #{shDate} 
+			</where>
+		</if>
+		GROUP  BY Date_format(a.sle_wnt_dt, '%Y-%m-%d %H:%i:%s')
+		ORDER  BY sle_wnt_dt,
+		          Date_format(crt_dt, '%Y-%m-%d') DESC,
+		          set_gnr_nm
+	</select>
+	<select id="selectRecBid" parameterType="hashmap" resultType="map">
+		SELECT Date_format(b.crt_dt, '%Y-%m-%d %H:%i:%s') sle_wnt_dt,
+		       c.set_gnr_nm,
+		       d.rsrs_nm,
+		       b.rec_eqpm_id,
+		       b.sle_cnt,
+		       b.sle_upr,
+		       b.tot_sle_amt,
+		       Date_format(b.upd_dt, '%Y-%m-%d %H:%i:%s') crt_dt,
+		       1                                          num
+		FROM   tb_d_rec_bidg_mstr a
+		       LEFT JOIN tb_d_rec_bidg_dtl_hist b
+		              ON a.stacc_no = b.stacc_no
+		       LEFT JOIN tb_c_cntc_unon_info c
+		              ON a.set_gnrrs_id = c.set_gnr_id
+		       LEFT JOIN tb_c_cntc_rsrs_info d
+		              ON a.res_gnrrs_id = d.rsrs_id
+		<if test="enpr_id != null">  
+			<where>
+				d.enpr_id = #{enpr_id}
+				AND Date_format(b.crt_dt, '%Y-%m-%d') between #{startDate} and #{endDate} 
+			</where>
+		</if>
+		UNION ALL
+		SELECT Date_format(b.crt_dt, '%Y-%m-%d %H:%i:%s') sle_wnt_dt,
+		       '합계'                                   SET_GNR_NM,
+		       ''                                         RSRS_NM,
+		       ''                                         REC_EQPM_ID,
+		       Sum(b.sle_cnt),
+		       Sum(b.sle_upr),
+		       Sum(b.tot_sle_amt),
+		       '-'                                        crt_dt,
+		       2                                          num
+		FROM   tb_d_rec_bidg_mstr a
+		       LEFT JOIN tb_d_rec_bidg_dtl_hist b
+		              ON a.stacc_no = b.stacc_no
+		       LEFT JOIN tb_c_cntc_unon_info c
+		              ON a.set_gnrrs_id = c.set_gnr_id
+		       LEFT JOIN tb_c_cntc_rsrs_info d
+		              ON a.res_gnrrs_id = d.rsrs_id
+		<if test="enpr_id != null">  
+			<where>
+				d.enpr_id = #{enpr_id}
+				AND Date_format(b.crt_dt, '%Y-%m-%d') between #{startDate} and #{endDate} 
+			</where>
+		</if>
+		GROUP  BY Date_format(b.crt_dt, '%Y-%m-%d')
+		ORDER  BY sle_wnt_dt,
+		          num  
+	</select>
+</mapper>

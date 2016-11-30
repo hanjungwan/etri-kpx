@@ -1,0 +1,3 @@
+<%@ taglib prefix="c" uri="jstl/c"%>
+<%@ taglib prefix="fmt" uri="jstl/fmt" %>
+<%@ taglib prefix="fn"  uri="jstl/fn" %>

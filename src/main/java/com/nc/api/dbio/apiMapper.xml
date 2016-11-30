@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<!--
+    Copyright 2010 The myBatis Team
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<mapper namespace="api">
+    <select id="selectOpenAPI" resultType="map">
+        SELECT
+        	CODE_NM
+        FROM
+        	TB_A_CMMN_CD
+        WHERE
+        	CODE_ID = 'OpenAPIUrl'
+    </select>
+	<sql id="pageStart">
+		SELECT 
+				TT.*
+		FROM 
+		(
+	</sql>
+	
+	<sql id="pageEnd">
+		) TT 
+		WHERE 
+				TT.rnum &lt; = #{limitNum}
+				AND TT.rnum between #{startIndex} and #{endIndex}
+	</sql>
+
+	<!-- 사업자 정보 조회 -->
+	<select id="selectEnprInfoList" parameterType="hashmap" resultType="map">
+		SELECT
+				TT.ENPR_ID
+				,TT.ENPR_RGST_NO
+				,TT.ENPR_NM
+				,TT.ENPR_COND
+				,TT.ENPR_CATE
+				,TT.ENPR_TP
+				,TT.ENPR_CEO_NM
+				,TT.ENPR_CNCT_NM
+				,TT.ENPR_CNCT_CP
+				,TT.ENPR_TEL_NO
+				,TT.ENPR_FAX_NO
+				,TT.ENPR_ADDR
+				,TT.ENPR_DTL_ADDR
+				,TT.USE_YN
+				,TT.CRT_DT
+				,TT.UPD_DT
+				,TT.DATA_TP
+		FROM
+		(
+			SELECT
+					A.ENPR_ID
+					,A.ENPR_RGST_NO
+					,A.ENPR_NM
+					,A.ENPR_COND
+					,A.ENPR_CATE
+					,A.ENPR_TP
+					,A.ENPR_CEO_NM
+					,A.ENPR_CNCT_NM
+					,A.ENPR_CNCT_CP
+					,A.ENPR_TEL_NO
+					,A.ENPR_FAX_NO
+					,A.ENPR_ADDR
+					,A.ENPR_DTL_ADDR
+					,A.USE_YN
+					,A.PRMT_STTS
+					,DATE_FORMAT(A.CRT_DT, '%Y-%m-%d %H:%i:%S') AS CRT_DT
+					,DATE_FORMAT(A.UPD_DT, '%Y-%m-%d %H:%i:%S') AS UPD_DT
+					,(
+						CASE WHEN A.CRT_DT IS NOT NULL AND A.UPD_DT IS NULL
+						THEN
+								'N'
+						ELSE
+								CASE WHEN A.CRT_DT IS NOT NULL AND A.UPD_DT IS NOT NULL
+								THEN
+										'U'
+								ELSE
+										CASE WHEN A.CRT_DT IS NOT NULL AND A.UPD_DT IS NOT NULL AND A.USE_YN = 'N'
+										THEN
+												'D'
+										END
+								END
+						END
+					) AS DATA_TP
+			FROM
+					TB_B_ENPR_INFO A
+			WHERE
+					A.USE_YN = 'Y'
+					AND (A.SEQ_NO <![CDATA[>]]> 0 AND A.SEQ_NO IS NOT NULL)
+					AND A.ENPR_TP = CONCAT('0}, #{enprTp})
+			ORDER BY SEQ_NO
+		) TT
+	</select>
+	
+	<!-- 사업자 정보 조히 수  -->
+	<select id="selectEnprInfoListCnt" parameterType="hashmap" resultType="int">
+		SELECT
+				COUNT(*) AS TOTAL_CNT
+		FROM
+		(
+			SELECT
+					A.ENPR_ID
+					,A.ENPR_RGST_NO
+					,A.ENPR_NM
+					,A.ENPR_COND
+					,A.ENPR_CATE
+					,A.ENPR_TP
+					,A.ENPR_CEO_NM
+					,A.ENPR_CNCT_NM
+					,A.ENPR_CNCT_CP
+					,A.ENPR_TEL_NO
+					,A.ENPR_FAX_NO
+					,A.ENPR_ADDR
+					,A.ENPR_DTL_ADDR
+					,A.USE_YN
+					,A.PRMT_STTS
+					,A.CRT_DT
+					,A.UPD_DT
+					,(
+						CASE WHEN A.CRT_DT IS NOT NULL AND A.UPD_DT IS NULL
+						THEN
+								'N'
+						ELSE
+								CASE WHEN A.CRT_DT IS NOT NULL AND A.UPD_DT IS NOT NULL
+								THEN
+										'U'
+								ELSE
+										CASE WHEN A.CRT_DT IS NOT NULL AND A.UPD_DT IS NOT NULL AND A.USE_YN = 'N'
+										THEN
+												'D'
+										END
+								END
+						END
+					) AS DATA_TP
+			FROM
+					TB_B_ENPR_INFO A
+			WHERE
+					A.USE_YN = 'Y'
+					AND (A.SEQ_NO <![CDATA[>]]> 0 AND A.SEQ_NO IS NOT NULL)
+					AND A.ENPR_TP = CONCAT('0', #{enprTp})
+			ORDER BY SEQ_NO
+		) TT
+	</select>
+	
+	<delete id="deleteEnprInfo">
+	    DELETE FROM TB_B_ENPR_INFO WHERE ENPR_ID = #{ENPR_ID}
+	</delete>
+	<insert id="insertEnprInfo">
+	    INSERT INTO TB_B_ENPR_INFO(ENPR_ID, ENPR_NM, ENPR_TP, ENPR_RGST_NO, ENPR_CATE, ENPR_COND, ENPR_FND_DT, ENPR_CEO_NM, ENPR_CNCT_NM, ENPR_CNCT_CP, ENPR_ADDR, ENPR_DTL_ADDR, ENPR_TEL_NO, ENPR_FAX_NO, ENPR_EMAIL, ENPR_WEB_PAGE, CRT_DT, CRT_USR_ID, UPD_DT, UPD_USR_ID, USE_YN, PRMT_STTS, RMK) 
+		VALUES (#{ENPR_ID}, #{ENPR_NM}, #{ENPR_TP}, #{ENPR_RGST_NO}, #{ENPR_CATE}, #{ENPR_COND}, #{ENPR_FND_DT}, #{ENPR_CEO_NM}, #{ENPR_CNCT_NM}, #{ENPR_CNCT_CP}, #{ENPR_ADDR}, #{ENPR_DTL_ADDR}, #{ENPR_TEL_NO}, #{ENPR_FAX_NO}, #{ENPR_EMAIL}, #{ENPR_WEB_PAGE}, #{CRT_DT}, #{CRT_USR_ID}, #{UPD_DT}, #{UPD_USR_ID}, #{USE_YN}, #{PRMT_STTS}, #{RMK})
+	</insert>
+	<update id="updateEnprInfo">
+	    UPDATE 
+	    	TB_B_ENPR_INFO 
+		SET 
+			ENPR_NM = #{ENPR_NM}, ENPR_TP = #{ENPR_TP}, ENPR_RGST_NO = #{ENPR_RGST_NO}, ENPR_CATE = #{ENPR_CATE}, ENPR_COND = #{ENPR_COND}, ENPR_FND_DT = #{ENPR_FND_DT}, ENPR_CEO_NM = #{ENPR_CEO_NM}, ENPR_CNCT_NM = #{ENPR_CNCT_NM}, ENPR_CNCT_CP = #{ENPR_CNCT_CP}, ENPR_ADDR = #{ENPR_ADDR}, ENPR_DTL_ADDR = #{ENPR_DTL_ADDR}, ENPR_TEL_NO = #{ENPR_TEL_NO}, ENPR_FAX_NO = #{ENPR_FAX_NO}, ENPR_EMAIL = #{ENPR_EMAIL}, ENPR_WEB_PAGE = #{ENPR_WEB_PAGE}, CRT_DT = #{CRT_DT}, CRT_USR_ID = #{CRT_USR_ID}, UPD_DT = #{UPD_DT}, UPD_USR_ID = #{UPD_USR_ID}, USE_YN = #{USE_YN}, PRMT_STTS = #{PRMT_STTS}, RMK = #{RMK} 
+		WHERE
+			ENPR_ID = #{ENPR_ID}
+	</update>
+	<delete id="deleteSetRsrsInfo">
+	    DELETE FROM TB_C_CNTC_UNON_INFO WHERE SET_GNR_ID = #{SET_GNR_ID}
+	</delete>
+	<insert id="insertSetRsrsInfo">
+	    INSERT INTO TB_C_CNTC_UNON_INFO
+		(SET_GNR_ID, SET_GNR_NM, KPX_RGST_NO, KPX_RGST_NM, TOT_EQPM_CPCT, REGN, GNR_CNT, CRT_DT, CRT_USR_ID, USE_YN, RMK, MDT_ENPR_INFO_ID) 
+		VALUES (#{SET_GNR_ID}, #{SET_GNR_NM}, #{KPX_RGST_NO}, #{KPX_RGST_NM}, TOT_EQPM_CPCT, #{REGN}, GNR_CNT, #{CRT_DT}, #{CRT_USR_ID}, if(length(#{UPD_DT}) is null,null,#{UPD_DT}), #{RMK}, #{MDT_ENPR_INFO_ID});
+	</insert>
+	<update id="updateSetRsrsInfo">
+		UPDATE TB_C_CNTC_UNON_INFO 
+		SET SET_GNR_NM = #{SET_GNR_NM}, KPX_RGST_NO = #{KPX_RGST_NO}, KPX_RGST_NM = #{KPX_RGST_NM}, TOT_EQPM_CPCT = TOT_EQPM_CPCT, REGN = #{REGN}, GNR_CNT = GNR_CNT, CRT_DT = #{CRT_DT}, CRT_USR_ID = #{CRT_USR_ID}, UPD_DT = #{UPD_DT}, UPD_USR_ID = #{UPD_USR_ID}, USE_YN = #{USE_YN}, RMK = #{RMK}, MDT_ENPR_INFO_ID = #{MDT_ENPR_INFO_ID}
+		WHERE SET_GNR_ID = #{SET_GNR_ID}
+	</update>
+	<delete id="deleteRsrsInfo">
+	    DELETE FROM TB_C_CNTC_RSRS_INFO WHERE RSRS_ID = #{RSRS_ID}
+	</delete>
+	<insert id="insertRsrsInfo">
+	    INSERT INTO TB_C_CNTC_RSRS_INFO
+		(RSRS_ID, ENPR_ID, SET_GNR_ID, CNTR_ID, GNR_PTRN_ID, RSRS_NM, RSRS_BAS_ADDR, RSRS_DTL_ADDR, REGN, USED, EQPM_CPCT, MAX_GNR_CPCT, MIX_GNR_CPCT, PWR_GNR, INSTL_LND, INSTL_OWN, INSTL_USE, KPX_MEMB_NO, LCNS_NO, RGST_NO, WTT_HRMTR_NO, REC_ACCT_NO, REC_CD_CNT, CTRL_RTU_IP, CTRL_RTU_PRT, EQPM_CNT, WORK_ST_DT, MANF_ID, MDL_ID, DOC_ID, CRT_DT, CRT_USR_ID, USE_YN, RMK) 
+		VALUES (#{RSRS_ID}, #{ENPR_ID}, #{SET_GNR_ID}, #{CNTR_ID}, #{GNR_PTRN_ID}, #{RSRS_NM}, #{RSRS_BAS_ADDR}, #{RSRS_DTL_ADDR}, #{REGN}, #{USED}, EQPM_CPCT, MAX_GNR_CPCT, MIX_GNR_CPCT, #{PWR_GNR}, #{INSTL_LND}, #{INSTL_OWN}, #{INSTL_USE}, #{KPX_MEMB_NO}, #{LCNS_NO}, #{RGST_NO}, #{WTT_HRMTR_NO}, #{REC_ACCT_NO}, REC_CD_CNT, #{CTRL_RTU_IP}, CTRL_RTU_PRT, EQPM_CNT, #{WORK_ST_DT}, #{MANF_ID}, #{MDL_ID}, #{DOC_ID}, #{CRT_DT}, #{CRT_USR_ID}, #{USE_YN}, #{RMK})
+	</insert>
+	<update id="updateRsrsInfo">
+		UPDATE TB_C_CNTC_RSRS_INFO 
+		SET RSRS_ID = #{RSRS_ID}, ENPR_ID = #{ENPR_ID}, SET_GNR_ID = #{SET_GNR_ID}, CNTR_ID = #{CNTR_ID}, GNR_PTRN_ID = #{GNR_PTRN_ID}, RSRS_NM = #{RSRS_NM}, RSRS_BAS_ADDR = #{RSRS_BAS_ADDR}, RSRS_DTL_ADDR = #{RSRS_DTL_ADDR}, REGN = #{REGN}, USED = #{USED}, EQPM_CPCT = EQPM_CPCT, MAX_GNR_CPCT = MAX_GNR_CPCT, MIX_GNR_CPCT = MIX_GNR_CPCT, PWR_GNR = #{PWR_GNR}, INSTL_LND = #{INSTL_LND}, INSTL_OWN = #{INSTL_OWN}, INSTL_USE = #{INSTL_USE}, KPX_MEMB_NO = #{KPX_MEMB_NO}, LCNS_NO = #{LCNS_NO}, RGST_NO = #{RGST_NO}, WTT_HRMTR_NO = #{WTT_HRMTR_NO}, REC_ACCT_NO = #{REC_ACCT_NO}, REC_CD_CNT = REC_CD_CNT, CTRL_RTU_IP = #{CTRL_RTU_IP}, CTRL_RTU_PRT = CTRL_RTU_PRT, EQPM_CNT = EQPM_CNT, WORK_ST_DT = #{WORK_ST_DT}, MANF_ID = #{MANF_ID}, MDL_ID = #{MDL_ID}, DOC_ID = #{DOC_ID}, CRT_DT = #{CRT_DT}, CRT_USR_ID = #{CRT_USR_ID}, UPD_DT = #{UPD_DT}, UPD_USR_ID = #{UPD_USR_ID}, USE_YN = #{USE_YN}, RMK = #{RMK} 
+		WHERE RSRS_ID = #{RSRS_ID}
+	</update>
+	<insert id="insertRsrsInfo">
+	    INSERT INTO TB_C_CNTC_RSRS_INFO
+		(RSRS_ID, ENPR_ID, SET_GNR_ID, CNTR_ID, GNR_PTRN_ID, RSRS_NM, RSRS_BAS_ADDR, RSRS_DTL_ADDR, REGN, USED, EQPM_CPCT, MAX_GNR_CPCT, MIX_GNR_CPCT, PWR_GNR, INSTL_LND, INSTL_OWN, INSTL_USE, KPX_MEMB_NO, LCNS_NO, RGST_NO, WTT_HRMTR_NO, REC_ACCT_NO, REC_CD_CNT, CTRL_RTU_IP, CTRL_RTU_PRT, EQPM_CNT, WORK_ST_DT, MANF_ID, MDL_ID, DOC_ID, CRT_DT, CRT_USR_ID, USE_YN, RMK) 
+		VALUES (#{RSRS_ID}, #{ENPR_ID}, #{SET_GNR_ID}, #{CNTR_ID}, #{GNR_PTRN_ID}, #{RSRS_NM}, #{RSRS_BAS_ADDR}, #{RSRS_DTL_ADDR}, #{REGN}, #{USED}, EQPM_CPCT, MAX_GNR_CPCT, MIX_GNR_CPCT, #{PWR_GNR}, #{INSTL_LND}, #{INSTL_OWN}, #{INSTL_USE}, #{KPX_MEMB_NO}, #{LCNS_NO}, #{RGST_NO}, #{WTT_HRMTR_NO}, #{REC_ACCT_NO}, REC_CD_CNT, #{CTRL_RTU_IP}, CTRL_RTU_PRT, EQPM_CNT, #{WORK_ST_DT}, #{MANF_ID}, #{MDL_ID}, #{DOC_ID}, #{CRT_DT}, #{CRT_USR_ID}, #{USE_YN}, #{RMK})
+	</insert>
+</mapper>

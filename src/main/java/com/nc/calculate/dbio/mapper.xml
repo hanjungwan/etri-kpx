@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<!--
+    Copyright 2010 The myBatis Team
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+
+<mapper namespace="calculate">    
+	<select id="selectWeighingSettlement" parameterType="hashmap" resultType="map">
+		SELECT Date_format(a.trx_dt, '%Y-%m-%d') trx_dt,
+		       b.enpr_nm,
+		       a.tot_msrmt_sum,
+		       a.smp_val,
+		       a.tot_cls_amt,
+		       a.tot_fee,
+		       a.lst_cls_amt,
+		       a.hr_01,
+		       a.hr_02,
+		       a.hr_03,
+		       a.hr_04,
+		       a.hr_05,
+		       a.hr_06,
+		       a.hr_07,
+		       a.hr_08,
+		       a.hr_09,
+		       a.hr_10,
+		       a.hr_11,
+		       a.hr_12,
+		       a.hr_13,
+		       a.hr_14,
+		       a.hr_15,
+		       a.hr_16,
+		       a.hr_17,
+		       a.hr_18,
+		       a.hr_19,
+		       a.hr_20,
+		       a.hr_21,
+		       a.hr_22,
+		       a.hr_23,
+		       a.hr_24,
+		       1                                 num
+		FROM   tb_d_daly_elec_bill a
+		       LEFT JOIN tb_b_enpr_info b
+		              ON a.mid_enpr_id = b.enpr_id
+		UNION ALL
+		SELECT Date_format(a.trx_dt, '%Y-%m-%d') trx_dt,
+		       '합계'                          ENPR_NM,
+		       Sum(a.tot_msrmt_sum),
+		       ''                                smp_val,
+		       Sum(a.tot_cls_amt),
+		       ''                                tot_fee,
+		       Sum(a.lst_cls_amt)                lst_cls_amt,
+		       Sum(a.hr_01)                      hr_01,
+		       Sum(a.hr_02)                      hr_02,
+		       Sum(a.hr_03)                      hr_03,
+		       Sum(a.hr_04)                      hr_04,
+		       Sum(a.hr_05)                      hr_05,
+		       Sum(a.hr_06)                      hr_06,
+		       Sum(a.hr_07)                      hr_07,
+		       Sum(a.hr_08)                      hr_08,
+		       Sum(a.hr_09)                      hr_09,
+		       Sum(a.hr_10)                      hr_10,
+		       Sum(a.hr_11)                      hr_11,
+		       Sum(a.hr_12)                      hr_12,
+		       Sum(a.hr_13)                      hr_13,
+		       Sum(a.hr_14)                      hr_14,
+		       Sum(a.hr_15)                      hr_15,
+		       Sum(a.hr_16)                      hr_16,
+		       Sum(a.hr_17)                      hr_17,
+		       Sum(a.hr_18)                      hr_18,
+		       Sum(a.hr_19)                      hr_19,
+		       Sum(a.hr_20)                      hr_20,
+		       Sum(a.hr_21)                      hr_21,
+		       Sum(a.hr_22)                      hr_22,
+		       Sum(a.hr_23)                      hr_23,
+		       Sum(a.hr_24)                      hr_24,
+		       2                                 num
+		FROM   tb_d_daly_elec_bill a
+		       LEFT JOIN tb_b_enpr_info b
+		              ON a.mid_enpr_id = b.enpr_id
+		GROUP  BY Date_format(a.trx_dt, '%Y-%m-%d')
+		ORDER  BY trx_dt,
+		          '%Y-%m-%d',
+		          num  
+	</select>
+	<select id="selectRecSettlement" parameterType="hashmap" resultType="map">
+		SELECT Date_format(a.trx_dt, '%Y-%m-%d') trx_dt,
+		       b.rsrs_nm,
+		       a.rec_acct_no,
+		       a.sle_cnt,
+		       a.sle_upr,
+		       a.sle_cnt * a.sle_upr             sle_pri,
+		       a.pwr_trx_fee,
+		       a.lst_cls_amt,
+		       1                                 num
+		FROM   tb_d_daly_rec_bill a
+		       LEFT JOIN tb_c_cntc_rsrs_info b
+		              ON a.res_gnrrs_id = b.rsrs_id
+		UNION ALL
+		SELECT Date_format(a.trx_dt, '%Y-%m-%d') trx_dt,
+		       '합계'                          rsrs_nm,
+		       ''                                rec_acct_no,
+		       Sum(a.sle_cnt)                    sle_cnt,
+		       Sum(a.sle_upr)                    sle_upr,
+		       Sum(a.sle_cnt * a.sle_upr)        sle_pri,
+		       0                                 pwr_trx_fee,
+		       Sum(a.lst_cls_amt)                lst_cls_amt,
+		       2                                 num
+		FROM   tb_d_daly_rec_bill a
+		       LEFT JOIN tb_c_cntc_rsrs_info b
+		              ON a.res_gnrrs_id = b.rsrs_id
+		GROUP  BY Date_format(a.trx_dt, '%Y-%m-%d')
+		ORDER  BY Date_format(trx_dt, '%Y-%m-%d'),
+		          num  
+	</select>
+</mapper>

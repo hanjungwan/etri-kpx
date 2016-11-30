@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+	PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-config.dtd"> 
+
+<!--
+    Copyright 2010 The myBatis Team
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+
+<configuration>
+
+	<settings>
+		<setting name="cacheEnabled" value="false" />
+		<setting name="useGeneratedKeys" value="true" />
+		<setting name="defaultExecutorType" value="REUSE" />
+		<!-- setting name="defaultStatementTimeout" value="25000"/ -->
+	</settings>
+
+	<mappers>
+		<mapper resource="com/nc/commonservice/dbio/mapper.xml" />
+		<mapper resource="com/nc/member/dbio/memberMapper.xml" />
+		<mapper resource="com/nc/customer/dbio/customerMapper.xml" />
+		<mapper resource="com/nc/mypage/dbio/mypageMapper.xml" />
+		<mapper resource="com/nc/resource/dbio/resourceMapper.xml" />
+		<mapper resource="com/nc/order/dbio/orderMapper.xml" />
+		<mapper resource="com/nc/tender/dbio/tenderMapper.xml" />
+		<mapper resource="com/nc/adjustment/dbio/adjustmentMapper.xml" />
+		<mapper resource="com/nc/system/dbio/systemMapper.xml" />
+		<!-- 추가 -->
+		<mapper resource="com/nc/businessManagement/dbio/bmMapper.xml" />
+		<mapper resource="com/nc/bidding/dbio/mapper.xml" />
+		<mapper resource="com/nc/calculate/dbio/mapper.xml" />
+		<mapper resource="com/nc/contractManagement/dbio/mapper.xml" />
+		<mapper resource="com/nc/meteringControl/dbio/mapper.xml" />
+		<mapper resource="com/nc/resourceManagement/dbio/mapper.xml" />
+		<mapper resource="com/nc/set/dbio/mapper.xml" />
+		<!-- OpenAPI -->
+		<mapper resource="com/nc/api/dbio/apiMapper.xml" />
+		<!-- 스케쥴 -->
+		<mapper resource="com/sched/dbio/schedMapper.xml" />
+	</mappers>
+	
+</configuration>
+

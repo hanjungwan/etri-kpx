@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/xml/doc-files/log4j.dtd">
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+  
+       http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<log4j:configuration xmlns:log4j='http://jakarta.apache.org/log4j/'>
+
+	<appender name="console" class="org.apache.log4j.ConsoleAppender">
+  		<param name="encoding" value="UTF-8" />
+  		<param name="target" value="System.out" />
+    	<layout class="org.apache.log4j.PatternLayout">
+      		<param name="ConversionPattern" value="[%d{HH:mm:ss.SSS}] %-5p %C{1}.%M(%F:%L) | %m%n"/>
+    	</layout>
+  	</appender>
+  	
+  	<appender name="sqlout" class="org.apache.log4j.ConsoleAppender">
+  		<param name="encoding" value="UTF-8" />
+  		<param name="target" value="System.out" />
+    	<layout class="org.apache.log4j.PatternLayout">
+      		<param name="ConversionPattern" value="[%d{HH:mm:ss.SSS}] | %m%n"/>
+    	</layout>
+  	</appender>
+  	
+  	<appender name="logFile" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="logs/log.log" />
+        <param name="Append" value="true" />
+        <param name="DatePattern" value=".yyyy-MM-dd" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%t &gt; [%d{yyyy-MM-dd HH:mm:ss}] %-5p %C.%M(%F:%L) | %m%n" />
+        </layout>
+    </appender>
+	
+	<logger name="org.apache" additivity="false">
+		<level value="info" />
+		<appender-ref ref="console" />
+		<appender-ref ref="logFile"/>
+  	</logger>
+  	
+  	<logger name="org.springframework" additivity="false">
+		<level value="info" />
+		<appender-ref ref="console" />
+		<appender-ref ref="logFile"/>
+  	</logger>
+  	
+  	<logger name="org.springframework.web.servlet.DispatcherServlet" additivity="false">
+		<level value="debug" />
+		<appender-ref ref="console" />
+		<appender-ref ref="logFile"/>
+  	</logger>
+	
+	<logger name="java.sql.Connection" additivity="false">
+		<level value="debug" />
+		<appender-ref ref="sqlout" />
+		<appender-ref ref="logFile"/>
+  	</logger>
+  	<logger name="java.sql.Statement" additivity="false">
+		<level value="error" />
+		<appender-ref ref="sqlout" />
+		<appender-ref ref="logFile"/>
+  	</logger>
+  	<logger name="java.sql.PreparedStatement" additivity="false">
+		<level value="debug" />
+		<appender-ref ref="sqlout" />
+		<appender-ref ref="logFile"/>
+  	</logger>
+  	<logger name="java.sql.ResultSet" additivity="false">
+		<level value="error" />
+		<appender-ref ref="sqlout" />
+		<appender-ref ref="logFile"/>
+  	</logger>
+  	
+  	<logger name="org.mybatis.spring" additivity="false">
+		<level value="info" />
+		<appender-ref ref="sqlout" />
+		<appender-ref ref="logFile"/>
+  	</logger>
+  	
+	<logger name="jdbc.resultsettable" additivity="false">
+		<level value="info" />
+		<appender-ref ref="sqlout" />
+		<appender-ref ref="logFile"/>
+	</logger>
+
+	<logger name="jdbc.sqlonly" additivity="false">
+		<level value="warn" />
+		<appender-ref ref="sqlout" />
+		<appender-ref ref="logFile"/>
+	</logger>
+	
+	<logger name="jdbc.sqltiming" additivity="false">
+		<level value="debug" />
+		<appender-ref ref="sqlout" />
+		<appender-ref ref="logFile"/>
+	</logger>
+	
+	<logger name="jdbc.audit" additivity="false">
+		<level value="warn" />
+		<appender-ref ref="sqlout" />
+		<appender-ref ref="logFile"/>
+	</logger>
+	
+	<logger name="jdbc.resultset" additivity="false">
+		<level value="warn" />
+		<appender-ref ref="sqlout" />
+		<appender-ref ref="logFile"/>
+	</logger>
+	
+	<logger name="jdbc.connection" additivity="false">
+		<level value="warn" />
+		<appender-ref ref="sqlout" />
+		<appender-ref ref="logFile"/>
+	</logger>
+
+	<logger name="log4jdbc.debug" additivity="false">
+		<level value="warn" />
+		<appender-ref ref="sqlout" />
+		<appender-ref ref="logFile"/>
+	</logger>
+	
+	<root>
+		<level value="debug" />
+		<appender-ref ref="console"/>
+		<appender-ref ref="logFile"/>
+	</root>
+	
+</log4j:configuration>

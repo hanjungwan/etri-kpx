@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE xml>
+<decorators>
+	<decorator name="index" page="/WEB-INF/jsp/common/template/index.jsp">
+		<pattern>/main/index.do</pattern>
+	</decorator>
+	
+	<decorator name="intermediaryBusiness" page="/WEB-INF/jsp/common/template/businessManagement/intermediaryBusiness.jsp">
+		<pattern>/businessManagement/intermediaryBusiness.do</pattern>
+	</decorator>
+	<decorator name="resourceholder" page="/WEB-INF/jsp/common/template/businessManagement/resourceholders.jsp">
+		<pattern>/businessManagement/resourceholders.do</pattern>
+	</decorator>
+	<decorator name="intermediaryBusinessAddNModify" page="/WEB-INF/jsp/businessManagement/intermediaryBusinessAddNModify.jsp">
+		<pattern>/businessManagement/intermediaryBusinessAddNModify.do</pattern>
+	</decorator>
+	<decorator name="resourceAddNModify" page="/WEB-INF/jsp/businessManagement/resourceAddNModify.jsp">
+		<pattern>/businessManagement/resourceAddNModify.do</pattern>
+	</decorator>
+	
+	<decorator name="setOfResource" page="/WEB-INF/jsp/common/template/resourceManagement/setOfResource.jsp">
+		<pattern>/resourceManagement/setOfResource.do</pattern>
+	</decorator>
+	<decorator name="smallResource" page="/WEB-INF/jsp/common/template/resourceManagement/smallResource.jsp">
+		<pattern>/resourceManagement/smallResource.do</pattern>
+	</decorator>
+	<decorator name="setOfResourceAddNModify" page="/WEB-INF/jsp/resourceManagement/setOfResourceAddNModify.jsp">
+		<pattern>/resourceManagement/setOfResourceAddNModify.do</pattern>
+	</decorator>
+	<decorator name="smallResourceAddNModify" page="/WEB-INF/jsp/resourceManagement/smallResourceAddNModify.jsp">
+		<pattern>/resourceManagement/smallResourceAddNModify.do</pattern>
+	</decorator>
+	<decorator name="setOfResourceData" page="/WEB-INF/jsp/resourceManagement/setOfResourceData.jsp">
+		<pattern>/resourceManagement/setOfResourceData.do</pattern>
+	</decorator>
+	
+	<decorator name="contractManagement" page="/WEB-INF/jsp/common/template/contractManagement/contractManagement.jsp">
+		<pattern>/contractManagement/contractManagement.do</pattern>
+	</decorator>
+	<decorator name="contractManagementAddNModify" page="/WEB-INF/jsp/contractManagement/contractManagementAddNModify.jsp">
+		<pattern>/contractManagement/contractManagementAddNModify.do</pattern>
+	</decorator>
+	
+	<decorator name="powerBid" page="/WEB-INF/jsp/common/template/bidding/powerBid.jsp">
+		<pattern>/bidding/powerBid.do</pattern>
+	</decorator>
+	<decorator name="recBid" page="/WEB-INF/jsp/common/template/bidding/recBid.jsp">
+		<pattern>/bidding/recBid.do</pattern>
+	</decorator>
+	<decorator name="powerBidAddNModify" page="/WEB-INF/jsp/bidding/powerBidAddNModify.jsp">
+		<pattern>/bidding/powerBidAddNModify.do</pattern>
+	</decorator>
+	<decorator name="recBidAddNModify" page="/WEB-INF/jsp/bidding/recBidAddNModify.jsp">
+		<pattern>/bidding/recBidAddNModify.do</pattern>
+	</decorator>
+	
+	<decorator name="recSettlement" page="/WEB-INF/jsp/common/template/calculate/recSettlement.jsp">
+		<pattern>/calculate/recSettlement.do</pattern>
+	</decorator>
+	<decorator name="settlementPrediction" page="/WEB-INF/jsp/common/template/calculate/settlementPrediction.jsp">
+		<pattern>/calculate/settlementPrediction.do</pattern>
+	</decorator>
+	<decorator name="weighingSettlement" page="/WEB-INF/jsp/common/template/calculate/weighingSettlement.jsp">
+		<pattern>/calculate/weighingSettlement.do</pattern>
+	</decorator>
+	
+	<decorator name="meteringControl" page="/WEB-INF/jsp/common/template/meteringControl/meteringControl.jsp">
+		<pattern>/meteringControl/meteringControl.do</pattern>
+	</decorator>
+	
+	<decorator name="settlementInformationSet" page="/WEB-INF/jsp/common/template/set/settlementInformationSet.jsp">
+		<pattern>/set/settlementInformationSet.do</pattern>
+	</decorator>
+	<decorator name="smpPrices" page="/WEB-INF/jsp/common/template/set/smpPrices.jsp">
+		<pattern>/set/smpPrices.do</pattern>
+	</decorator>
+	
+	<decorator name="adjustment" page="/WEB-INF/jsp/common/template/adjustment.jsp">
+		<pattern>/adjustment/*.do</pattern>
+	</decorator>
+	
+	<decorator name="common" page="/WEB-INF/jsp/common/template/common.jsp">
+		<pattern>/common/*.do</pattern>
+		<pattern>/system/*.do</pattern>
+	</decorator>
+
+	<decorator name="control" page="/WEB-INF/jsp/common/template/control.jsp">
+		<pattern>/control/*.do</pattern>
+	</decorator>
+
+	<decorator name="customer" page="/WEB-INF/jsp/common/template/customer.jsp">
+		<pattern>/customer/*.do</pattern>
+	</decorator>
+	
+	<decorator name="mediate" page="/WEB-INF/jsp/common/template/mediate.jsp">
+		<pattern>/mediate/*.do</pattern>
+	</decorator>
+	
+	<decorator name="member" page="/WEB-INF/jsp/common/template/member.jsp">
+		<pattern>/member/*.do</pattern>
+	</decorator>
+	
+	<decorator name="mypage" page="/WEB-INF/jsp/common/template/mypage.jsp">
+		<pattern>/mypage/*.do</pattern>
+	</decorator>
+	
+	<decorator name="order" page="/WEB-INF/jsp/common/template/order.jsp">
+		<pattern>/order/*.do</pattern>
+	</decorator>
+	
+	<decorator name="resource" page="/WEB-INF/jsp/common/template/resource.jsp">
+		<pattern>/resource/*.do</pattern>
+	</decorator>
+	
+	<decorator name="tender" page="/WEB-INF/jsp/common/template/tender.jsp">
+		<pattern>/tender/*.do</pattern>
+	</decorator>
+	
+	<!-- 예외처리 -->
+	<excludes> 
+		<pattern>/common/*</pattern>
+		<pattern>/customer/popup*</pattern>
+	</excludes> 
+
+	<decorator name="error" page="/WEB-INF/jsp/common/template/error.jsp">
+		<pattern>/resourceNotFound.do</pattern>
+		<pattern>/uncaughtException.do</pattern>
+	</decorator>
+	
+	<decorator name="resource_import" page="/WEB-INF/jsp/common/include/resource_import.jsp" />
+	<decorator name="header" page="/WEB-INF/jsp/common/include/header.jsp" />
+	<decorator name="footer" page="/WEB-INF/jsp/common/include/footer.jsp" />
+	<decorator name="left_menu" page="/WEB-INF/jsp/common/include/left_menu.jsp" />
+	<decorator name="b_management_left_menu" page="/WEB-INF/jsp/common/include/businessManagement/left_menu.jsp" />
+	<decorator name="r_management_left_menu" page="/WEB-INF/jsp/common/include/resourceManagement/left_menu.jsp" />
+	<decorator name="bidding_left_menu" page="/WEB-INF/jsp/common/include/bidding/left_menu.jsp" />
+	<decorator name="calculate_left_menu" page="/WEB-INF/jsp/common/include/calculate/left_menu.jsp" />
+	<decorator name="set_left_menu" page="/WEB-INF/jsp/common/include/set/left_menu.jsp" />
+</decorators>

@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<!--
+    Copyright 2010 The myBatis Team
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+
+<mapper namespace="resourceManagement">    
+	<select id="selectSetOfResourceList" parameterType="hashmap" resultType="map">
+		SELECT a.set_gnr_nm,
+		       c.enpr_nm,
+		       Sum(a.tot_eqpm_cpct) tot_eqpm_cpct,
+		       a.regn,
+		       c.enpr_id
+		FROM   tb_c_cntc_unon_info a
+		       LEFT JOIN tb_b_cntc_set_info b
+		              ON a.mdt_enpr_info_id = b.mdt_enpr_info_id
+		       LEFT JOIN tb_b_enpr_info c
+		              ON b.enpr_id = c.enpr_id
+		<if test="shOption != 'all' and shOption != null ">  
+			<where>
+				b.enpr_id = #{shOption}
+			</where>
+		</if>
+		GROUP  BY b.enpr_id
+	</select>
+	<select id="selectSetOfResource" parameterType="hashmap" resultType="map">
+		SELECT    c.enpr_nm,
+		          a.set_gnr_nm,
+		          a.regn,
+		          a.kpx_rgst_no,
+		          a.kpx_rgst_nm,
+		          a.tot_eqpm_cpct,
+		          a.gnr_cnt
+		FROM      tb_c_cntc_unon_info a
+		LEFT JOIN tb_b_cntc_set_info b
+		ON        a.mdt_enpr_info_id = b.mdt_enpr_info_id
+		LEFT JOIN tb_b_enpr_info c
+		ON        b.enpr_id=c.enpr_id
+		<where>
+			c.enpr_id = #{id}
+		</where> 
+	</select>
+	<select id="selectResourceList" parameterType="hashmap" resultType="map">
+		SELECT a.rsrs_nm,
+		       b.enpr_nm,
+		       a.pwr_gnr,
+		       a.used,
+		       a.eqpm_cpct,
+		       a.crt_dt
+		FROM   tb_c_cntc_rsrs_info a
+		       LEFT JOIN tb_b_enpr_info b
+		              ON a.enpr_id = b.enpr_id
+		<where>
+			a.enpr_id = #{id}
+		</where>
+	</select>  
+	<select id="selectSmallResourceList" parameterType="hashmap" resultType="map">
+		SELECT a.rsrs_nm,
+		       b.enpr_nm,
+		       a.eqpm_cpct,
+		       a.regn,
+		       a.seq_no
+		FROM   tb_c_cntc_rsrs_info a
+		       LEFT JOIN tb_b_enpr_info b
+		              ON a.enpr_id = b.enpr_id
+	</select>
+	<select id="selectSmallResource" parameterType="hashmap" resultType="map">
+		SELECT b.enpr_id,
+			   b.enpr_nm,
+			   a.rsrs_id,
+		       a.rsrs_nm,
+		       a.rsrs_bas_addr,
+		       a.rsrs_dtl_addr,
+		       a.regn,
+		       a.used,
+		       a.eqpm_cpct,
+		       a.max_gnr_cpct,
+		       a.mix_gnr_cpct,
+		       a.pwr_gnr,
+		       a.instl_lnd,
+		       a.instl_own,
+		       a.instl_use,
+		       a.kpx_memb_no,
+		       a.lcns_no,
+		       a.rgst_no,
+		       a.wtt_hrmtr_no,
+		       a.rec_acct_no,
+		       a.ctrl_rtu_ip,
+		       a.ctrl_rtu_prt,
+		       a.eqpm_cnt,
+		       a.work_st_dt
+		FROM   tb_c_cntc_rsrs_info a
+		       LEFT JOIN tb_b_enpr_info b
+		              ON a.enpr_id = b.enpr_id
+		WHERE  a.seq_no = #{id}
+	</select>
+	<update id="upadteCntcRsrsInfo" parameterType="hashmap">
+		UPDATE tb_c_cntc_rsrs_info
+		SET    rsrs_nm =#{rsrs_nm },
+		       rsrs_bas_addr =#{rsrs_bas_addr },
+		       rsrs_dtl_addr =#{rsrs_dtl_addr },
+		       regn =#{regn },
+		       used =#{used },
+		       eqpm_cpct =#{eqpm_cpct },
+		       max_gnr_cpct =#{max_gnr_cpct },
+		       mix_gnr_cpct =#{mix_gnr_cpct },
+		       pwr_gnr =#{pwr_gnr },
+		       instl_lnd =#{instl_lnd },
+		       instl_own =#{instl_own },
+		       instl_use =#{instl_use },
+		       kpx_memb_no =#{kpx_memb_no },
+		       lcns_no =#{lcns_no },
+		       rgst_no =#{rgst_no },
+		       wtt_hrmtr_no =#{wtt_hrmtr_no },
+		       rec_acct_no =#{rec_acct_no },
+		       ctrl_rtu_ip =#{ctrl_rtu_ip },
+		       ctrl_rtu_prt =#{ctrl_rtu_prt },
+		       eqpm_cnt =#{eqpm_cnt },
+		       work_st_dt =#{work_st_dt },
+		       UPD_DT = now()
+		<where>
+		   enpr_id=#{enpr_id }
+		</where> 
+	</update>
+	<insert id="insertCntcRsrsInfo" parameterType="hashmap">
+		INSERT INTO tb_c_cntc_rsrs_info
+		            (rsrs_id,
+		             rsrs_nm,
+		             rsrs_bas_addr,
+		             rsrs_dtl_addr,
+		             regn,
+		             used,
+		             eqpm_cpct,
+		             max_gnr_cpct,
+		             mix_gnr_cpct,
+		             pwr_gnr,
+		             instl_lnd,
+		             instl_own,
+		             instl_use,
+		             kpx_memb_no,
+		             lcns_no,
+		             rgst_no,
+		             wtt_hrmtr_no,
+		             rec_acct_no,
+		             ctrl_rtu_ip,
+		             ctrl_rtu_prt,
+		             eqpm_cnt,
+		             work_st_dt,
+		             enpr_id)
+		VALUES     ( #{rsrs_id},
+					 #{rsrs_nm},
+		             #{rsrs_bas_addr},
+		             #{rsrs_dtl_addr},
+		             #{regn},
+		             #{used},
+		             #{eqpm_cpct},
+		             #{max_gnr_cpct},
+		             #{mix_gnr_cpct},
+		             #{pwr_gnr},
+		             #{instl_lnd},
+		             #{instl_own},
+		             #{instl_use},
+		             #{kpx_memb_no},
+		             #{lcns_no},
+		             #{rgst_no},
+		             #{wtt_hrmtr_no},
+		             #{rec_acct_no},
+		             #{ctrl_rtu_ip},
+		             #{ctrl_rtu_prt},
+		             #{eqpm_cnt},
+		             #{work_st_dt},
+		             #{enpr_id} )  
+	</insert>
+</mapper>

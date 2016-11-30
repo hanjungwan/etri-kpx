@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<!--
+    Copyright 2010 The myBatis Team
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+
+<mapper namespace="common">    
+	<sql id="pageStart">
+		SELECT 
+				TT.*
+		FROM 
+		(
+	</sql>
+	
+	<sql id="pageEnd">
+		) TT 
+		WHERE 
+				TT.rnum &lt; = #{limitNum}
+				AND TT.rnum between #{startIndex} and #{endIndex}
+	</sql>
+	
+	<!-- test -->
+	<select id="testSelect" parameterType="hashmap" resultType="map">
+		SELECT COUNT(*) AS CNT FROM FOO
+	</select>
+	
+	<!-- 사용자 정보 조회 -->
+	<select id="selectUserInfo" parameterType="hashmap" resultType="map">
+		SELECT
+				A.USER_ID
+				,A.LOGIN_ID
+				,A.USR_NM
+				,A.USR_PWD
+				,A.COMP_ID
+				,A.AUTH_ID
+				,A.EMAIL
+				,A.CP_NO
+				,DATE_FORMAT(A.CRT_DT, '%Y-%m-%d') AS CRT_DT
+				,A.CRT_USR_ID
+				,DATE_FORMAT(A.UPD_DT, '%Y-%m-%d') AS UPD_DT
+				,A.UPD_USR_ID
+				,A.LOGIN_YN
+				,DATE_FORMAT(A.LST_LOGIN_DT, '%Y-%m-%d') AS LST_LOGIN_DT
+				,A.USE_YN
+				,A.PRMT_STTCS_CD
+				,(
+					SELECT
+							CODE_NAME
+					FROM
+							TB_A_CMMN_CD
+					WHERE
+							UP_CODE_ID = ''
+							AND CODE_ID = A.PRMT_STTCS_CD
+				) AS PRMT_STTCS_CD_NM 
+		FROM
+				TB_A_USER_INFO A
+		WHERE
+				A.USE_YN = 'Y'
+				AND A.LOGIN_ID = #{usrId}
+	</select>
+</mapper>

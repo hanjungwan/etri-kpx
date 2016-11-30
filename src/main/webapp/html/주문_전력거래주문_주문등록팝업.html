@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ko"><head>
+	<title>ETRI 분산자원/신재생에너지 전력거래 중개시스템</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="Description" content="ETRI 분산자원/신재생에너지 전력거래 중개시스템">
+	<meta name="Keywords" content="ETRI 분산자원/신재생에너지 전력거래 중개시스템">
+	<meta name="Author" content="ETRI 분산자원/신재생에너지 전력거래 중개시스템">
+	<meta charset="UTF-8">
+	
+	<link rel="stylesheet" type="text/css" href="./css/main.css">
+
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+	<script type="text/javascript">
+	jQuery(function($){
+		var tab = $('.tab_list');
+		tab.removeClass('js_off');
+		tab.css('height', tab.find('>ul>li>ul:visible').height()+40);
+		function onSelectTab(){
+			var t = $(this);
+			var myClass = t.parent('li').attr('class');
+			t.parents('.tab_list:first').attr('class', 'tab_list '+myClass);
+			tab.css('height', t.next('ul').height()+40);
+		}
+		tab.find('>ul>li>a').click(onSelectTab).focus(onSelectTab);
+	});
+
+
+
+	 $(function() {
+        $("table tr:nth-child(even)").addClass("striped");
+      });
+
+	</script>
+</head>
+<body>
+
+<!----//wrapper----->
+<div class="pop_wrap">
+        <div class="pop_title">주문등록 <span><img src="images/btn/close.png"></div>
+		<div class="pop_contain">
+                            <!---//search---->
+							  <div class="select_wrap">
+								 <form>
+								  <div class="form-group">
+									<table class="tb1">
+									  <tr>
+										  <th>주문유형</th>
+										  <td><select  style="width:200px"><option>자동주문</option></select></td>	
+										  <td class="interval">&nbsp;</td>
+										  <th>판매 희망일자</th>
+										  <td><input type="text" size="6"><img src="images/img/ico_calendar.png">&nbsp;~&nbsp;&nbsp;<input type="text" size="6"><img src="images/img/ico_calendar.png"></td>
+									  </tr>
+
+									   <tr>
+										  <th>발전유형</th>
+										  <td><select  style="width:200px"><option>태양광(PV)</option></select></td>
+										  <td class="interval">&nbsp;</td>
+										  <th>자원선택</th>
+										  <td><select  style="width:220px"><option>태안복합 태양광발전 1호기  </option></select></td>											 
+									  </tr>
+									</table>
+									<div class="bn"><a class="btn_big"><img src="images/img/ico_magnifier.png">검색</a></div>
+								  </div>
+								 </form>
+							  </div>
+							  <!---search//---->
+
+
+
+							   <!---//button---->
+							 <div class="both_wrap">
+								 <div class="lfbn">
+								    <a class="btn_big2"><img src="images/img/ico_add.png">행추가</a> <a class="btn_big2"><img src="images/img/ico_delete.png">행삭제</a>
+								  </div>
+								  <div class="rgbn">
+								  <a class="btn_big3">입찰서 생성</a> <a class="btn_big3">주문등록</a> <a class="btn_big2"><img src="images/img/ico_excel.png">다운로드</a>
+							  </div>
+							 </div>
+							 <!---button//---->
+
+                             <!---//table---->
+							 <div class="row">
+							   <div class="tb_y_wrap" style="height:350px">
+							   <table class="tb2">                             
+								 <thead>
+									<tr>									
+									 <th></th>
+									 <th>주문<br/>등록유형</th>
+									 <th>판매시작<br/>희망일자</th>
+									 <th>판매시작<br/>종료일자</th>
+									 <th>발전원 유형</th>
+									 <th>소규모 자원명</th>
+									 <th>구간</th>
+									 <th>주문량</th>
+									 <th>시대별 주문량합</th>									 
+									</tr>
+								 </thead>
+
+								 <tbody>
+								  <tr>
+									<td><img src="images/img/ico_add.png"></td>
+									<td>구간주문</td>
+									<td>2016-09-01</td>
+									<td>2016-10-30</td>
+									<td>태양광(PV)</td>
+									<td>태안복합태양광발전기1호기</td>
+									<td>1Hr</td>
+									<td class="price">100,000</td>
+									<td class="ord_sum">3,000,000</td>
+								  </tr>
+								  <tr>
+									<td><img src="images/img/ico_add.png"></td>
+									<td>구간주문</td>
+									<td>2016-09-01</td>
+									<td>2016-10-30</td>
+									<td>태양광(PV)</td>
+									<td>태안복합태양광발전기1호기</td>
+									<td>1Hr</td>
+									<td class="price">100,000</td>
+									<td class="ord_sum">3,000,000</td>
+								  </tr>
+								  <tr>
+									<td><img src="images/img/ico_add.png"></td>
+									<td>구간주문</td>
+									<td>2016-09-01</td>
+									<td>2016-10-30</td>
+									<td>태양광(PV)</td>
+									<td>태안복합태양광발전기1호기</td>
+									<td>1Hr</td>
+									<td class="price">100,000</td>
+									<td class="ord_sum">3,000,000</td>
+								  </tr>
+								  <tr>
+									<td><img src="images/img/ico_add.png"></td>
+									<td>구간주문</td>
+									<td>2016-09-01</td>
+									<td>2016-10-30</td>
+									<td>태양광(PV)</td>
+									<td>태안복합태양광발전기1호기</td>
+									<td>1Hr</td>
+									<td class="price">100,000</td>
+									<td class="ord_sum">3,000,000</td>
+								  </tr>
+								  <tr>
+									<td><img src="images/img/ico_add.png"></td>
+									<td>구간주문</td>
+									<td>2016-09-01</td>
+									<td>2016-10-30</td>
+									<td>태양광(PV)</td>
+									<td>태안복합태양광발전기1호기</td>
+									<td>1Hr</td>
+									<td class="price">100,000</td>
+									<td class="ord_sum">3,000,000</td>
+								  </tr>
+								  <tr>
+									<td><img src="images/img/ico_add.png"></td>
+									<td>구간주문</td>
+									<td>2016-09-01</td>
+									<td>2016-10-30</td>
+									<td>태양광(PV)</td>
+									<td>태안복합태양광발전기1호기</td>
+									<td>1Hr</td>
+									<td class="price">100,000</td>
+									<td class="ord_sum">3,000,000</td>
+								  </tr>
+								  <tr>
+									<td><img src="images/img/ico_add.png"></td>
+									<td>구간주문</td>
+									<td>2016-09-01</td>
+									<td>2016-10-30</td>
+									<td>태양광(PV)</td>
+									<td>태안복합태양광발전기1호기</td>
+									<td>1Hr</td>
+									<td class="price">100,000</td>
+									<td class="ord_sum">3,000,000</td>
+								  </tr>
+								  <tr>
+									<td><img src="images/img/ico_add.png"></td>
+									<td>구간주문</td>
+									<td>2016-09-01</td>
+									<td>2016-10-30</td>
+									<td>태양광(PV)</td>
+									<td>태안복합태양광발전기1호기</td>
+									<td>1Hr</td>
+									<td class="price">100,000</td>
+									<td class="ord_sum">3,000,000</td>
+								  </tr>
+								  <tr>
+									<td><img src="images/img/ico_add.png"></td>
+									<td>구간주문</td>
+									<td>2016-09-01</td>
+									<td>2016-10-30</td>
+									<td>태양광(PV)</td>
+									<td>태안복합태양광발전기1호기</td>
+									<td>1Hr</td>
+									<td class="price">100,000</td>
+									<td class="ord_sum">3,000,000</td>
+								  </tr>
+								  <tr>
+									<td><img src="images/img/ico_add.png"></td>
+									<td>구간주문</td>
+									<td>2016-09-01</td>
+									<td>2016-10-30</td>
+									<td>태양광(PV)</td>
+									<td>태안복합태양광발전기1호기</td>
+									<td>1Hr</td>
+									<td class="price">100,000</td>
+									<td class="ord_sum">3,000,000</td>
+								  </tr>
+								    <tr>
+									<td><img src="images/img/ico_add.png"></td>
+									<td>구간주문</td>
+									<td>2016-09-01</td>
+									<td>2016-10-30</td>
+									<td>태양광(PV)</td>
+									<td>태안복합태양광발전기1호기</td>
+									<td>1Hr</td>
+									<td class="price">100,000</td>
+									<td class="ord_sum">3,000,000</td>
+								  </tr>
+								    <tr>
+									<td><img src="images/img/ico_add.png"></td>
+									<td>구간주문</td>
+									<td>2016-09-01</td>
+									<td>2016-10-30</td>
+									<td>태양광(PV)</td>
+									<td>태안복합태양광발전기1호기</td>
+									<td>1Hr</td>
+									<td class="price">100,000</td>
+									<td class="ord_sum">3,000,000</td>
+								  </tr>
+								    <tr>
+									<td><img src="images/img/ico_add.png"></td>
+									<td>구간주문</td>
+									<td>2016-09-01</td>
+									<td>2016-10-30</td>
+									<td>태양광(PV)</td>
+									<td>태안복합태양광발전기1호기</td>
+									<td>1Hr</td>
+									<td class="price">100,000</td>
+									<td class="ord_sum">3,000,000</td>
+								  </tr>
+								 </tbody>
+
+							   </table>
+							   </div>
+							 </div>
+						     <!---table//---->
+
+                         
+		</div>
+</div>
+<!----wrapper//----->
+  
+</body>
+</html>

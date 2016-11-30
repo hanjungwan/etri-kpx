@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ko"><head>
+	<title>ETRI 분산자원/신재생에너지 전력거래 중개시스템</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="Description" content="ETRI 분산자원/신재생에너지 전력거래 중개시스템">
+	<meta name="Keywords" content="ETRI 분산자원/신재생에너지 전력거래 중개시스템">
+	<meta name="Author" content="ETRI 분산자원/신재생에너지 전력거래 중개시스템">
+	<meta charset="UTF-8">
+	
+	<link rel="stylesheet" type="text/css" href="./css/main.css">
+
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+	<script type="text/javascript">
+	jQuery(function($){
+		var tab = $('.tab_list');
+		tab.removeClass('js_off');
+		tab.css('height', tab.find('>ul>li>ul:visible').height()+40);
+		function onSelectTab(){
+			var t = $(this);
+			var myClass = t.parent('li').attr('class');
+			t.parents('.tab_list:first').attr('class', 'tab_list '+myClass);
+			tab.css('height', t.next('ul').height()+40);
+		}
+		tab.find('>ul>li>a').click(onSelectTab).focus(onSelectTab);
+	});
+
+
+
+	 $(function() {
+        $("table tr:nth-child(even)").addClass("striped");
+      });
+
+	</script>
+</head>
+<body>
+
+<!----//wrapper----->
+<div id="wrapper">
+	  <div class="header">
+	   <div class="topwrap">
+		   <ul class="header topwrap">
+			<li><a href="#">HELP</a></li>
+			<li><a href="#">통보함</a></li>
+			<li><a href="#">마이페이지</a></li>
+			<li><a href="#">LOGOUT</a></li>
+		   </ul>
+	   </div>
+	  </div>
+
+
+
+	  <nav class="nav">
+		<div class="navbar">
+		   <a class="toplogo"><img src="images/img/logo.png" alt="ETRI 분산자원/신재생에너지 전력거래 중개시스템"></a>
+		   <ul class="nav navbar">
+		     <li><a>자원관리</a></li>
+			 <li><a>중개위탁</a></li>
+			 <li><a>관제</a></li>
+			 <li><a  class="select">주문입찰</a></li><!--class="select"현재페이지---->
+			 <li><a>정산</a></li>
+		   </ul>
+		</div>
+	  </nav>
+
+
+
+
+      <!----//container----->
+	  <div class="sub_container">
+         
+          <!----//row100----->
+          <div class="row" style="min-height:210px;">
+                
+
+				<!---//left Menu----->
+				<div class="col_p15">
+				   <div class="side_wrap">
+				     <div class="nav_tit"> 주문 / 입찰</div>
+					 <ul class="side-nav">
+					 <li>전력거래주문<span><img src="images/img/ico_side.png"></span></li>
+					 <li class="active">REC 거래 주문<span><img src="images/img/ico_side_hover.png"></span></li><!---현재페이지 class="active / ico_side_hover.png"----->
+					 </ul>
+				   </div>
+				</div>
+				<!---left Menu//----->
+
+
+				<!---//Contents----->
+				<div class="col_p85">
+				   <div class="contents" >
+				    
+                          <div class="error">
+						    <p class="font1">ERROR </p>
+							<p class="font0"><span>요청하신 페이지</span>를 찾을 수 없습니다. </p>
+
+							<p class="font2">주소가 잘못 입력되었거나, 변경 혹은 삭제되어 요청하신 페이지를 찾을 수 없습니다.<br>
+							입력하신 주소가 정확한지 다시 한번 확인해 주시기 바랍니다.<br/><br/>
+							시스템 이용에 관련한 문의 사항은 <span>아래 번호</span>로 전화주시면 
+							안내해 드리겠습니다. 감사합니다. </p>
+							<br> 
+
+							 <div class="err_box">
+								<p class="font3">
+								문의전화 : 021-1234  <br/>
+								운영시간 : 09:00 ~ 18:00 (평일)
+								</p>
+						     </div>
+                         </div>
+				   </div>
+				</div>
+				<!---Contents//----->
+
+
+		  </div>
+		  <!----row100//----->
+
+
+	  </div>
+	  <!----container//----->
+</div>
+ <!----wrapper//----->
+  
+
+
+<!---//footer--->
+<div class="footer">
+ <div class="copy">
+  <span>(34129) 대전광역시 유성구 가정로 218, TEL 042-860-6114<br/>2016 Electronics and Telecommunications Research Institute. All rights reserved.</span>
+ </div>
+</div>
+<!---footer//--->
+		
+    
+
+
+</body>
+</html>

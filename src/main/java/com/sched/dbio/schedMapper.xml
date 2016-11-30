@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- Copyright 2010 The myBatis Team Licensed under the Apache License, Version 
+	2.0 (the "License"); you may not use this file except in compliance with 
+	the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 
+	Unless required by applicable law or agreed to in writing, software distributed 
+	under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES 
+	OR CONDITIONS OF ANY KIND, either express or implied. See the License for 
+	the specific language governing permissions and limitations under the License. -->
+
+<mapper namespace="job">
+	<insert id="insertSMPdata" parameterType="hashmap">
+		INSERT INTO TB_E_SMP
+		(SMP_DATE, HR_01, HR_02, HR_03, HR_04, HR_05, HR_06, HR_07, HR_08,
+		HR_09, HR_10, HR_11, HR_12, HR_13, HR_14, HR_15, HR_16, HR_17, HR_18,
+		HR_19, HR_20, HR_21, HR_22, HR_23, HR_24)
+		VALUES(#{smpDate}, #{hr1}, #{hr2}, #{hr3}, #{hr4}, #{hr5}, #{hr6}, #{hr7}, #{hr8},
+		#{hr9}, #{hr10}, #{hr11}, #{hr12}, #{hr13}, #{hr14}, #{hr15}, #{hr16},
+		#{hr17}, #{hr18}, #{hr19}, #{hr20}, #{hr21}, #{hr22}, #{hr23},
+		#{hr24})
+		ON DUPLICATE KEY
+		UPDATE
+		SMP_DATE = #{smpDate}
+		, HR_01 = #{hr1} ,HR_02 = #{hr2} ,HR_03 = #{hr3} ,HR_04 = #{hr4} ,HR_05
+		= #{hr5} ,HR_06 = #{hr6}
+		, HR_07 = #{hr7} ,HR_08 = #{hr8} ,HR_09 = #{hr9} ,HR_10 = #{hr10}
+		,HR_11 = #{hr11} ,HR_12 = #{hr12}
+		, HR_13 = #{hr13} ,HR_14 = #{hr14} ,HR_15 = #{hr15} ,HR_16 = #{hr16}
+		,HR_17 = #{hr17} ,HR_18 = #{hr18}
+		, HR_19 = #{hr19} ,HR_20 = #{hr20} ,HR_21 = #{hr21} ,HR_22 = #{hr22}
+		,HR_23 = #{hr23} ,HR_24 = #{hr24}
+	</insert>
+
+	<select id="selectSchedList" resultType="map">
+		SELECT
+		CONTEXT,
+		CONTEXT_NAME,
+		TIME_INTERVAL,
+		USE_YN,
+		JOB_CLASS_NAME
+		FROM
+		TB_SCHED_INFO
+	</select>
+</mapper>

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ko"><head>
+	<title>ETRI 분산자원/신재생에너지 전력거래 중개시스템</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="Description" content="ETRI 분산자원/신재생에너지 전력거래 중개시스템">
+	<meta name="Keywords" content="ETRI 분산자원/신재생에너지 전력거래 중개시스템">
+	<meta name="Author" content="ETRI 분산자원/신재생에너지 전력거래 중개시스템">
+	<meta charset="UTF-8">
+	
+	<link rel="stylesheet" type="text/css" href="./css/main.css">
+
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+	<script type="text/javascript">
+	jQuery(function($){
+		var tab = $('.tab_list');
+		tab.removeClass('js_off');
+		tab.css('height', tab.find('>ul>li>ul:visible').height()+40);
+		function onSelectTab(){
+			var t = $(this);
+			var myClass = t.parent('li').attr('class');
+			t.parents('.tab_list:first').attr('class', 'tab_list '+myClass);
+			tab.css('height', t.next('ul').height()+40);
+		}
+		tab.find('>ul>li>a').click(onSelectTab).focus(onSelectTab);
+	});
+	</script>
+</head>
+<body>
+
+<!----//wrapper----->
+<div id="wrapper">
+	  <div class="header">
+	   <div class="topwrap">
+		   <ul class="header topwrap">
+			<li><a href="#">HELP</a></li>
+			<li><a href="#">통보함</a></li>
+			<li><a href="#">마이페이지</a></li>
+			<li><a href="#">LOGOUT</a></li>
+		   </ul>
+	   </div>
+	  </div>
+
+
+
+	  <nav class="nav">
+		<div class="navbar">
+		   <a class="toplogo"><img src="images/img/logo.png" alt="ETRI 분산자원/신재생에너지 전력거래 중개시스템"></a>
+		   <ul class="nav navbar">
+		     <li><a>자원관리</a></li>
+			 <li><a>중개위탁</a></li>
+			 <li><a>관제</a></li>
+			 <li><a>주문입찰</a></li>
+			 <li><a>정산</a></li>
+		   </ul>
+		</div>
+	  </nav>
+
+
+
+
+      <!----//container----->
+	  <div class="container">
+          <div class="visual">
+		     <img src="images/img/main_visual.png" alt="Backyard Energy, Energy from Neighborhood">
+		  </div>
+
+
+          <!----//row100----->
+          <div class="row" style="min-height:210px;">
+
+				  <!---//tab---------->
+				  <div class="col_250">
+				  <div class="tab_list m1">
+						<ul>
+						<li class="m1"><a href="#"><span>공지사항</span></a>
+							<ul>
+							<li><img src="images/img/ico_dot.png"><a href="#">FullScale 시스템 모의운영계획 알림</a></li>
+							<li><img src="images/img/ico_dot.png"><a href="#">TOC 통합플랫폼 구축완료및 연계일정 </a></li>
+							<li><img src="images/img/ico_dot.png"><a href="#">웹서비스 개발 환경 알림</a></li>
+							<li><img src="images/img/ico_dot.png"><a href="#">CIM구축 컨설팅 최종발표일 안내</a></li>
+							<li><img src="images/img/ico_dot.png"><a href="#">전력거래 중개 시스템 이용안내</a></li>
+							<li><img src="images/img/ico_dot.png"><a href="#">테스트 페이지</a></li>
+							<li class="more"><img src="images/img/ico_more.png"><a href="#">더보기</a></li>
+							</ul>
+						</li>						
+						
+						</ul>
+				 </div>
+				 </div>
+				<!---tab//---------->
+
+				<!---//tab---------->
+				<div class="col_250">
+				   <div class="line_list">
+				     <ul>
+					  <li><span>전일 SMP</span>
+					    <ul>
+							<li>거 래 일 
+							<span class="date">2016. 09. 05 월요일</span>
+							</li>
+
+							<li>최&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;대 
+							<span>76.0</span>
+							</li>
+
+							<li>최&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;소 
+							<span>65.92</span>
+							</li>
+
+							<li>평&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;균 
+							<span>75.3</span>
+							</li>
+						</ul>					  
+					  </li>
+					  <li class="more"><img src="images/img/ico_more.png"><a href="#">더보기</a></li>
+					 </ul>
+				   </div>
+				</div>
+				<!---tab//---------->
+
+
+
+				<!---chart//---------->
+				<div class="col_720">
+				  <div class="chart_list">
+				     <ul>
+					  <li><span>중개자원 현황</span></li>
+					  <li class="more"><img src="images/img/ico_more.png"><a href="#">더보기</a></li>
+					   <li>   
+							<!---//col_60pertcent----->
+							 <div class="col_p60">						    
+								<!---//panel----->
+								  <div class="panel">
+										<div class="panel-heading">
+										  <h3 class="panel-title"><img src="images/img/ico_failure.png">장애현황</h3>
+										</div>
+
+										 <div class="panel-body" style="min-height:125px;">
+											<table class="chart_itm">
+											 <tr>
+											  <th><img src="images/img/ico_warning.png"><font color="#000">경고</font></th>
+											  <th><img src="images/img/ico_danger.png"><font color="#008cdf">위험</font></th>
+											  <th><img src="images/img/ico_import.png"><font color="#f79804">중요</font></th>
+											  <th><img src="images/img/ico_serious.png"><font color="#ec2411">심각</font></th>
+											 </tr>
+
+											 <tr>
+											  <td><img src="images/sample/chart1.png"><!---이미지샘플------></td>
+											  <td><img src="images/sample/chart2.png"></td>
+											  <td><img src="images/sample/chart3.png"></td>
+											  <td><img src="images/sample/chart4.png"></td>
+											 </tr>
+											</table>
+										 </div>
+								  </div>
+								<!---panel//----->
+							 </div>
+							 <!---col_60pertcent//----->  
+							 
+							 <!---//col_40pertcent----->
+							 <div class="col_p40">						    
+								<!---//panel----->
+								  <div class="panel2">
+										<div class="panel-heading">
+										  <h3 class="panel-title"><img src="images/img/ico_sucess.png">전체검침 성공률</h3>
+										</div>
+
+										 <div class="panel-body" style="min-height:125px;">
+											<table class="chart_itm">
+											 <tr>
+											  <th>정기점검</th>
+											  <th>현재점검</th>
+											  <th>LP데이터</th>
+											 </tr>
+
+											 <tr>
+											  <td><img src="images/sample/chart5.png"><!---이미지샘플------></td>
+											  <td><img src="images/sample/chart6.png"></td>
+											  <td><img src="images/sample/chart7.png"></td>
+											 </tr>
+											</table>
+										 </div>
+								  </div>
+								<!---panel//----->
+							 </div>
+							 <!---col_40pertcent//----->   
+						</li>
+                      </ul>
+				</div>
+				</div>
+				<!---chart//---------->
+
+        </div>
+		<!----row100//----->
+
+
+
+
+		<!----//row100----->
+		<div class="row" style="">
+				<!-----//banner-------->
+				<div class="banner">
+				<a><img src="images/img/banner_01.png"></a><a><img src="images/img/banner_02.png"></a><a><img src="images/img/banner_03.png"></a><a><img src="images/img/banner_04.png"></a><a><img src="images/img/banner_05.png"></a><a><img src="images/img/banner_06.png"></a>
+				</div>
+				<!-----banner//-------->
+        </div>
+		<!----row100//----->  
+
+
+
+
+	  </div>
+	  <!----container//----->
+</div>
+ <!----wrapper//----->
+  
+
+
+<!---//footer--->
+<div class="footer">
+ <div class="copy">
+  <span>(34129) 대전광역시 유성구 가정로 218, TEL 042-860-6114<br/>2016 Electronics and Telecommunications Research Institute. All rights reserved.</span>
+ </div>
+</div>
+<!---footer//--->
+		
+    
+
+
+</body>
+</html>

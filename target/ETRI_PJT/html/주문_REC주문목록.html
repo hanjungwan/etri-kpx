@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ko"><head>
+	<title>ETRI 분산자원/신재생에너지 전력거래 중개시스템</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="Description" content="ETRI 분산자원/신재생에너지 전력거래 중개시스템">
+	<meta name="Keywords" content="ETRI 분산자원/신재생에너지 전력거래 중개시스템">
+	<meta name="Author" content="ETRI 분산자원/신재생에너지 전력거래 중개시스템">
+	<meta charset="UTF-8">
+	
+	<link rel="stylesheet" type="text/css" href="./css/main.css">
+
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+	<script type="text/javascript">
+	jQuery(function($){
+		var tab = $('.tab_list');
+		tab.removeClass('js_off');
+		tab.css('height', tab.find('>ul>li>ul:visible').height()+40);
+		function onSelectTab(){
+			var t = $(this);
+			var myClass = t.parent('li').attr('class');
+			t.parents('.tab_list:first').attr('class', 'tab_list '+myClass);
+			tab.css('height', t.next('ul').height()+40);
+		}
+		tab.find('>ul>li>a').click(onSelectTab).focus(onSelectTab);
+	});
+
+
+
+	 $(function() {
+        $("table tr:nth-child(even)").addClass("striped");
+      });
+
+	</script>
+</head>
+<body>
+
+<!----//wrapper----->
+<div id="wrapper">
+	  <div class="header">
+	   <div class="topwrap">
+		   <ul class="header topwrap">
+			<li><a href="#">HELP</a></li>
+			<li><a href="#">통보함</a></li>
+			<li><a href="#">마이페이지</a></li>
+			<li><a href="#">LOGOUT</a></li>
+		   </ul>
+	   </div>
+	  </div>
+
+
+
+	  <nav class="nav">
+		<div class="navbar">
+		   <a class="toplogo"><img src="images/img/logo.png" alt="ETRI 분산자원/신재생에너지 전력거래 중개시스템"></a>
+		   <ul class="nav navbar">
+		     <li><a>자원관리</a></li>
+			 <li><a>중개위탁</a></li>
+			 <li><a>관제</a></li>
+			 <li><a  class="select">주문입찰</a></li><!--class="select"현재페이지---->
+			 <li><a>정산</a></li>
+		   </ul>
+		</div>
+	  </nav>
+
+
+
+
+      <!----//container----->
+	  <div class="sub_container">
+         
+          <!----//row100----->
+          <div class="row" style="min-height:210px;">
+                
+
+				<!---//left Menu----->
+				<div class="col_p15">
+				   <div class="side_wrap">
+				     <div class="nav_tit"> 주문 / 입찰</div>
+					 <ul class="side-nav">
+					 <li>전력거래주문<span><img src="images/img/ico_side.png"></span></li>
+					 <li class="active">REC 거래 주문<span><img src="images/img/ico_side_hover.png"></span></li><!---현재페이지 class="active / ico_side_hover.png"----->
+					 </ul>
+				   </div>
+				</div>
+				<!---left Menu//----->
+
+
+				<!---//Contents----->
+				<div class="col_p85">
+				   <div class="contents" >
+				      <div class="title">REC주문목록
+					      <div class="location"><a href=""><img src="images/img/ico_home.png"></a><img src="images/img/ico_arr.png"><a href="">주문/입찰</a><img src="images/img/ico_arr.png"><a href="">REC 거래 주문</a></div>
+					  </div>
+                              <!---//search---->
+							  <div class="select_wrap">
+								 <form>
+								  <div class="form-group">
+									<table class="tb1">
+									  <tr>
+										  <th>판매 희망일자</th>
+										  <td><input type="text" size="12"><img src="images/img/ico_calendar.png">&nbsp;~&nbsp;&nbsp;<input type="text" size="12"><img src="images/img/ico_calendar.png"></td>
+										  <td>&nbsp;</td>
+										  <th>주문일자</th>
+										  <td><input type="text" size="12"><img src="images/img/ico_calendar.png">&nbsp;~&nbsp;&nbsp;<input type="text" size="12"><img src="images/img/ico_calendar.png"></td>							  
+									  </tr>
+
+									   <tr>
+										  <th>발전유형</th>
+										  <td><select  style="width:300px"><option>태양광(PV)</option></select></td>
+										  <td>&nbsp;</td>
+										  <th>자원선택</th>
+										  <td><select  style="width:300px"><option>태안복합 태양광발전 1호기  </option></select></td>							  
+									  </tr>
+									</table>
+									<div class="bn"><a class="btn_big"><img src="images/img/ico_magnifier.png">검색</a></div>
+								  </div>
+								 </form>
+							  </div>
+							  <!---search//---->
+
+                             <!---//button---->
+							 <div class="rgbn_wrap">
+							  <a class="btn_big3">입찰서 생성</a> <a class="btn_big3">주문등록</a> <a class="btn_big2"><img src="images/img/ico_excel.png">다운로드</a>
+							 </div>
+							 <!---button//---->
+
+                             <!---//table---->
+							 <div class="row">
+							   <table class="tb2">
+                                 <colgroup><col><col width="10%"><col width="13%"><col width="17%" span="2"><col width="8%" span="2"><col  width="20%"></colgroup>
+								 <thead>
+									<tr>									
+									 <th>선택</th>
+									 <th>판매<br/>희망일자</th>
+									 <th>소규모 발전<br/>사업자명</th>
+									 <th>소규모<br/>자원명</th>
+									 <th>REC<br/>계좌번호</th>
+									 <th>총 매도수량<br/>(EA)</th>
+									 <th>총 매도금액<br/>(원)</th>
+									 <th>주문일시</th>
+									</tr>
+								 </thead>
+
+								 <tbody>
+								  <tr>
+									<td rowspan="7"><input type="checkbox" value=""></td>
+									<td rowspan="7">2016-10-01</td>
+									<td>㈜ 태안복합발전</td>
+									<td>태안복합 태양광발전 1호기</td>
+									<td>PV150R-2429-1601</td>
+									<td>10</td>
+									<td class="price">2,400,000</td>
+									<td>2016-10-10 20:20:10</td>
+								  </tr>
+								  <tr>
+									<td>㈜ 태안복합발전</td>
+									<td>태안복합 태양광발전 1호기</td>
+									<td>PV150R-2429-1601</td>
+									<td>10</td>
+									<td class="price">2,400,000</td>
+									<td>2016-10-10 20:20:10</td>
+								  </tr>
+								  <tr>
+									<td>㈜ 태안복합발전</td>
+									<td>태안복합 태양광발전 1호기</td>
+									<td>PV150R-2429-1601</td>
+									<td>10</td>
+									<td class="price">2,400,000</td>
+									<td>2016-10-10 20:20:10</td>
+								  </tr>
+								  <tr>
+									<td>㈜ 태안복합발전</td>
+									<td>태안복합 태양광발전 1호기</td>
+									<td>PV150R-2429-1601</td>
+									<td>10</td>
+									<td class="price">2,400,000</td>
+									<td>2016-10-10 20:20:10</td>
+								  </tr>	
+								   <tr>
+									<td>㈜ 태안복합발전</td>
+									<td>태안복합 태양광발전 1호기</td>
+									<td>PV150R-2429-1601</td>
+									<td>10</td>
+									<td class="price">2,400,000</td>
+									<td>2016-10-10 20:20:10</td>
+								  </tr>	
+								   <tr>
+									<td>㈜ 태안복합발전</td>
+									<td>태안복합 태양광발전 1호기</td>
+									<td>PV150R-2429-1601</td>
+									<td>10</td>
+									<td class="price">2,400,000</td>
+									<td>2016-10-10 20:20:10</td>
+								  </tr>	
+								   <tr>
+									<td>㈜ 태안복합발전</td>
+									<td>태안복합 태양광발전 1호기</td>
+									<td>PV150R-2429-1601</td>
+									<td>10</td>
+									<td class="price">2,400,000</td>
+									<td>2016-10-10 20:20:10</td>
+								  </tr>		
+								  <tr>
+									<td colspan="5" class="sum">소계</td>
+									<td class="sum">4,123</td>
+									<td class="sum">83256,000</td>
+									<td class="sum"></td>
+								  </tr>
+								  <tr>
+									<td rowspan="2"><input type="checkbox" value=""></td>
+									<td rowspan="2">2016-10-01</td>
+									<td>㈜ 태안복합발전</td>
+									<td>태안복합 태양광발전 1호기</td>
+									<td>PV150R-2429-1601</td>
+									<td>10</td>
+									<td class="price">2,400,000</td>
+									<td>2016-10-10 20:20:10</td>
+								  </tr>
+								   <tr>									
+									<td>㈜ 태안복합발전</td>
+									<td>태안복합 태양광발전 1호기</td>
+									<td>PV150R-2429-1601</td>
+									<td>10</td>
+									<td class="price">2,400,000</td>
+									<td>2016-10-10 20:20:10</td>
+								  </tr>
+								 </tbody>
+								 <tfoot>
+								 <tr>
+									<td colspan="5" class="sum">소계</td>
+									<td class="sum">4,123</td>
+									<td class="sum">83256,000</td>
+									<td class="sum"></td>
+								  </tr>
+								 </tfoot>
+
+							   </table>
+							 </div>
+						     <!---table//---->
+
+                             <!----//paging---->  
+							  <div class="paginate_complex">
+								<a href="#" class="direction prev"><img src="images/btn/first.png"></a>
+								<a href="#" class="direction prev"><img src="images/btn/prev.png"></a>
+								<a href="#">1</a>
+								<a href="#">2</a>
+								<a href="#">3</a>
+								<a href="#">4</a>
+								<strong>5</strong>
+								<a href="#">6</a>
+								<a href="#">7</a>
+								<a href="#">8</a>
+								<a href="#">9</a>
+								<a href="#" class="direction next"><img src="images/btn/next.png"></a>
+								<a href="#" class="direction next"><img src="images/btn/last.png"></a>
+								<a href="#" class="direction next"><img src="images/btn/refresh.png"></a>
+							   </div>
+							   <!----paging//---->
+
+				   </div>
+				</div>
+				<!---Contents//----->
+
+
+		  </div>
+		  <!----row100//----->
+
+
+
+
+
+
+
+
+	  </div>
+	  <!----container//----->
+</div>
+ <!----wrapper//----->
+  
+
+
+<!---//footer--->
+<div class="footer">
+ <div class="copy">
+  <span>(34129) 대전광역시 유성구 가정로 218, TEL 042-860-6114<br/>2016 Electronics and Telecommunications Research Institute. All rights reserved.</span>
+ </div>
+</div>
+<!---footer//--->
+		
+    
+
+
+</body>
+</html>

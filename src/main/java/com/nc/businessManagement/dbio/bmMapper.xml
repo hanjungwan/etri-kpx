@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<!--
+    Copyright 2010 The myBatis Team
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+
+<mapper namespace="businessManagement">	
+	<select id="selectIntermediaryList" parameterType="hashmap" resultType="map">
+		SELECT ( @rownum := @rownum + 1 ) AS rownum,
+		       A.enpr_nm,
+		       IFNULL(A.gnr_cnt,0) gnr_cnt,
+		       IFNULL(A.tot_eqpm_cpct,0) tot_eqpm_cpct,
+		       A.crt_dt,
+		       A.mdt_enpr_info_id
+		FROM   (SELECT A.enpr_nm,
+		               Sum(c.gnr_cnt)       GNR_CNT,
+		               Sum(c.tot_eqpm_cpct) TOT_EQPM_CPCT,
+		               b.crt_dt,
+		               b.mdt_enpr_info_id
+		        FROM   tb_b_enpr_info a
+		               INNER JOIN tb_b_cntc_set_info b
+		                       ON a.enpr_id = b.enpr_id
+		               LEFT OUTER JOIN tb_c_cntc_unon_info c
+		                            ON b.mdt_enpr_info_id = c.mdt_enpr_info_id
+		        GROUP  BY c.mdt_enpr_info_id) A,
+		       (SELECT @rownum := 0) TMP   
+	</select>
+	<select id="selectIntermediary" parameterType="hashmap" resultType="map">
+		SELECT a.enpr_id,
+		       a.enpr_nm,
+		       a.enpr_ceo_nm,
+		       a.enpr_rgst_no,
+		       b.mdt_enpr_info_id,
+		       a.enpr_cond,
+		       a.enpr_cate,
+		       a.enpr_tp,
+		       a.enpr_cnct_nm,
+		       a.enpr_cnct_cp,
+		       a.enpr_tel_no,
+		       a.enpr_fax_no,
+		       a.enpr_addr,
+		       a.enpr_dtl_addr,
+		       a.seq_no
+		FROM   tb_b_enpr_info a
+		       INNER JOIN tb_b_cntc_set_info b
+		               ON a.enpr_id = b.enpr_id
+		<where>
+			b.mdt_enpr_info_id =	#{id}
+		</where>
+	</select>
+	<select id="selectResourceHoldersList" parameterType="hashmap" resultType="map">
+		SELECT b.enpr_nm,
+		       Sum(c.tot_eqpm_cpct) TOT_EQPM_CPCT,
+		       b.enpr_cate,
+		       b.crt_dt,
+		       b.enpr_id
+		FROM   tb_c_cntc_rsrs_info a
+		       LEFT JOIN tb_b_enpr_info b
+		              ON a.enpr_id = b.enpr_id
+		       LEFT JOIN tb_c_cntc_unon_info c
+		              ON a.set_gnr_id = c.set_gnr_id
+		GROUP  BY b.enpr_id  
+	</select>
+	<select id="selectResourceHolders" parameterType="hashmap" resultType="map">
+		SELECT a.seq_no,
+			   a.enpr_nm,
+		       a.enpr_ceo_nm,
+		       a.enpr_rgst_no,
+		       a.enpr_id,
+		       a.enpr_cond,
+		       a.enpr_cate,
+		       a.enpr_tp,
+		       a.enpr_cnct_nm,
+		       a.enpr_cnct_cp,
+		       a.enpr_tel_no,
+		       a.enpr_fax_no,
+		       a.enpr_addr,
+		       a.enpr_dtl_addr
+		FROM   tb_b_enpr_info a
+		WHERE  a.enpr_id =	#{id}
+	</select>
+	<update id="updateEnprInfo" parameterType="hashmap">
+		UPDATE tb_b_enpr_info
+		SET    enpr_nm = #{enpr_nm },
+		       enpr_ceo_nm = #{enpr_ceo_nm },
+		       enpr_rgst_no = #{enpr_rgst_no },
+		       enpr_cond = #{enpr_cond },
+		       enpr_cate = #{enpr_cate },
+		       enpr_tp = #{enpr_tp },
+		       enpr_cnct_nm = #{enpr_cnct_nm },
+		       enpr_cnct_cp = #{cnct_no},
+		       enpr_tel_no = #{tel_no },
+		       enpr_fax_no = #{fax_no },
+		       enpr_addr = #{addr },
+		       enpr_dtl_addr = #{enpr_dtl_addr },
+		       UPD_DT = now()
+		<if test="resource != null">
+		       ,enpr_id = #{enpr_id}
+		</if>
+		<where>
+			seq_no = #{seq_no};
+		</where>  
+	</update>
+	<insert id="insertEnprInfo" parameterType="hashmap">
+		INSERT tb_b_enpr_info
+		       (enpr_id,
+		        enpr_nm,
+		        enpr_ceo_nm,
+		        enpr_rgst_no,
+		        enpr_cond,
+		        enpr_cate,
+		        enpr_tp,
+		        enpr_cnct_nm,
+		        enpr_cnct_cp,
+		        enpr_tel_no,
+		        enpr_fax_no,
+		        enpr_addr,
+		        enpr_dtl_addr,
+		        crt_dt)
+		VALUES ( #{enpr_id },
+		         #{enpr_nm },
+		         #{enpr_ceo_nm },
+		         #{enpr_rgst_no },
+		         #{enpr_cond },
+		         #{enpr_cate },
+		         #{enpr_tp },
+		         #{enpr_cnct_nm },
+		         #{cnct_no},
+		         #{tel_no },
+		         #{fax_no },
+		         #{addr },
+		         #{enpr_dtl_addr },
+		         now())  
+	</insert>
+	<insert id="insertCntcSetInfo" parameterType="hashmap">
+		INSERT tb_b_cntc_set_info
+		       (enpr_id,
+		        mdt_enpr_info_id,
+		        crt_dt)
+		VALUES ( #{enpr_id },
+		         #{mdt_enpr_info_id },
+		         now())  
+	</insert>
+	<insert id="insertCntcRsrsInfo" parameterType="hashmap">
+		INSERT tb_c_cntc_rsrs_info
+		       (enpr_id,
+		        crt_dt)
+		VALUES ( #{enpr_id },
+		         now())  
+	</insert>
+	<update id="updateCntcRsrsInfo" parameterType="hashmap">
+		UPADTE tb_c_cntc_rsrs_info SET
+		       enpr_id = #{enpr_id },
+		       UPD_DT = NOW()
+		 <where>
+		 	enpr_id = #{enpr_id }
+		 </where>
+	</update>
+</mapper>
